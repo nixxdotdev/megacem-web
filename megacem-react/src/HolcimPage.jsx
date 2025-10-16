@@ -12,6 +12,7 @@ const HolcimPage = () => {
                 </div>
                 <div className="col-auto">
                     <button className="btn btn-success mr-2">Add New Data</button>
+                    <button className="btn btn-warning text-white mr-2">Edit Data</button>
                     <button className="btn btn-primary mr-2">Extract Table</button>
                     <button className="btn btn-secondary">Settings</button>
                 </div>
@@ -96,7 +97,7 @@ const HolcimPage = () => {
                                     <th className="text-center">Delivery Source / Plant Site</th>
                                     <th className="text-center">Delivery Date</th>
                                     <th className="text-center">DR No.</th>
-                                    <th className="text-center">Acknowledgement Receipt / Holcim Weigh Slip</th>
+                                    <th className="text-center">Holcim Weigh Slip</th>
                                     <th className="text-center">P.O. Number</th>
                                     <th className="text-center">Rate</th>
                                     <th className="text-center">VAT</th>
@@ -219,12 +220,12 @@ const HolcimPage = () => {
                 {/* Total Trips */}
                 <div>
                     <span className="font-weight-bold">Total Trips: </span>
-                    <span>1</span>
+                    <span className="font-weight-bold">1</span>
                 </div>
                 {/* Total Amount */}
                 <div>
                     <span className="font-weight-bold">Total Amount: </span>
-                    <span>₱1,680.00</span>
+                    <span className="font-weight-bold">₱1,680.00</span>
                 </div>
             </div>
         </div>
