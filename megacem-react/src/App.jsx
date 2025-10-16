@@ -46,7 +46,6 @@ function App() {
                         </div>
                     </li>
                 </ul>
-                {/* End of Sidebar */}
 
                 {/* Content Wrapper */}
                 <div id="content-wrapper" className="d-flex flex-column">
@@ -216,7 +215,7 @@ function App() {
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Earl Verzon-nixxdotdev </span>
                                         <img className="img-profile rounded-circle"
                                             src="img/undraw_profile.svg" />
                                     </a>

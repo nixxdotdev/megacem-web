@@ -115,9 +115,116 @@ const HolcimPage = () => {
                                     <td className="text-center">180.00</td>
                                     <td className="text-center">1,680.00</td>
                                 </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
+                                <tr>
+                                    <td>1.</td>
+                                    <td className="text-center">GMC - HOLCIM BULACAN</td>
+                                    <td className="text-center">2024-06-01</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">0000000001</td>
+                                    <td className="text-center">630097432</td>
+                                    <td className="text-center">1,500.00</td>
+                                    <td className="text-center">180.00</td>
+                                    <td className="text-center">1,680.00</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+            <div className="card-footer d-flex justify-content-around align-items-center" style={{ gap: "2rem" }}>
+                <div>
+                    <nav>
+                        <ul className="pagination mb-0" style={{ gap: "0.5rem", display: "flex" }}>
+                            <li className="page-item disabled">
+                                <button className="page-link">Previous</button>
+                            </li>
+                            <li className="page-item active">
+                                <button className="page-link">1</button>
+                            </li>
+                            <li className="page-item">
+                                <button className="page-link">2</button>
+                            </li>
+                            <li className="page-item">
+                                <button className="page-link">Next</button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                {/* Total Trips */}
+                <div>
+                    <span className="font-weight-bold">Total Trips: </span>
+                    <span>1</span>
+                </div>
+                {/* Total Amount */}
+                <div>
+                    <span className="font-weight-bold">Total Amount: </span>
+                    <span>₱1,680.00</span>
                 </div>
             </div>
         </div>
