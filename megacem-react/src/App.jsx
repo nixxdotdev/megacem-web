@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
-import HolcimPage from './HolcimPage'; // Import the HolcimPage component
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HolcimPage from './components/GMCHolcim'; // Import the HolcimPage component
+import Dashboard from './components/Dashboard';
 
 function App() {
     return (
@@ -19,9 +21,10 @@ function App() {
                     <hr className="sidebar-divider my-0" />
 
                     <li className="nav-item active">
-                        <a className="nav-link" href="index.html">
+                        <Link className="nav-link" to="/Dashboard">
                             <i className="fas fa-fw fa-tachometer-alt"></i>
-                            <span>Dashboard</span></a>
+                            <span>Dashboard</span>
+                        </Link>
                     </li>
 
                     <hr className="sidebar-divider" />
@@ -39,7 +42,7 @@ function App() {
                         <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                             data-parent="#accordionSidebar">
                             <div className="bg-white py-2 collapse-inner rounded">
-                                <Link className="collapse-item" to="/holcim">Holcim</Link>
+                                <Link className="collapse-item" to="/GMC/Holcim">Holcim</Link>
                                 <a className="collapse-item" href="#">Republic</a>
                                 <a className="collapse-item" href="#">CEMEX</a>
                             </div>
@@ -253,7 +256,12 @@ function App() {
                                 <li className="breadcrumb-item active" aria-current="page">Holcim</li>
                             </ol>
                         </nav>
-                        <HolcimPage />
+                        <div className="container-fluid">
+                            <Routes>
+                                <Route path="/Dashboard" element={<Dashboard />} />
+                                <Route path="/GMC/Holcim" element={<HolcimPage />} />
+                            </Routes>
+                        </div>
                     </div>
                 </div>
                 {/* End of Content Wrapper */}

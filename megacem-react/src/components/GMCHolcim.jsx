@@ -4,8 +4,7 @@ const HolcimPage = () => {
     const [showBetween, setShowBetween] = useState(false);
 
     return (
-        <div className="container-fluid">
-
+        <>
             <div className="row align-items-center mb-3 justify-content-between">
                 <div className="col-auto">
                     <h3 className="mb-0 font-weight-bold">GMC - HOLCIM</h3>
@@ -228,7 +227,9 @@ const HolcimPage = () => {
                     <span className="font-weight-bold">₱1,680.00</span>
                 </div>
             </div>
-        </div>
+        </>
+
+
     )
 }
 
