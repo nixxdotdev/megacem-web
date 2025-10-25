@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HolcimPage from './components/GMCHolcim'; // Import the HolcimPage component
 import Dashboard from './components/Dashboard';
+import Tester from './components/tester';
 
 function App() {
     return (
@@ -260,6 +261,7 @@ function App() {
                             <Routes>
                                 <Route path="/Dashboard" element={<Dashboard />} />
                                 <Route path="/GMC/Holcim" element={<HolcimPage />} />
+                                <Route path="/tester" element={<Tester />} />
                             </Routes>
                         </div>
                     </div>
