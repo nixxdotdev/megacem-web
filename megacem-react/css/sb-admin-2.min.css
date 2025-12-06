@@ -1780,7 +1780,7 @@ pre code {
 .table {
     width: 100%;
     margin-bottom: 1rem;
-    color: #858796
+    color: #5c5e6b
 }
 
 .table td,
@@ -1792,7 +1792,8 @@ pre code {
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #e3e6f0
+    border-bottom: 2px solid #e3e6f0;
+    font-size: 1.3rem;
 }
 
 .table tbody+tbody {

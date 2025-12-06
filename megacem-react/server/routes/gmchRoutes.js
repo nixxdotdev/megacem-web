@@ -1,7 +1,7 @@
 import { Router } from 'express';
 const router = Router();
-import { getData } from '../controllers/gmchControllers';
+import { getData } from '../controllers/gmchControllers.js';
 
-router.get('/', getData);
+router.get('/gmch', getData);
 
 export default router;
