@@ -12,10 +12,12 @@ const HolcimPage = () => {
 
     // Form State
     const [formData, setFormData] = useState({
+        MTIdr: "MTI DR - 00090839",
         drdate: "",
         drnumber: "",
         weighslip: "",
         ponumber: "",
+        trucktype: "DUMPTRAILER",
     });
 
     useEffect(() => {
@@ -173,9 +175,9 @@ const HolcimPage = () => {
                                                 <td className="text-center">{item.drnumber || "-"}</td>
                                                 <td className="text-center">{item.weighslip || "-"}</td>
                                                 <td className="text-center">{item.ponumber || "-"}</td>
-                                                <td className="text-center">{item.rate || "-"}</td>
-                                                <td className="text-center">{item.vat || "-"}</td>
-                                                <td className="text-center">{item.grossamount || "-"}</td>
+                                                <td className="text-center">{item.rate + ".00" || "-"}</td>
+                                                <td className="text-center">{item.vat + ".00" || "-"}</td>
+                                                <td className="text-center">{item.grossamount + ".00" || "-"}</td>
                                             </tr>
                                         ))
                                     ) : (

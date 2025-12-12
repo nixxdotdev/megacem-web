@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const gmchSchema = new Schema({}, { strict: false });
 
-export default model('GMCHolcimModel', gmchSchema, 'GMCHolcim');
+export default model("GMCHolcim", gmchSchema);
