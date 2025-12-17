@@ -44,4 +44,17 @@ export async function addData(req, res) {
   }
 }
 
+export async function updateData(req, res) {
+  try {
+    const updated = await GMCHolcim.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.json({ success: true, data: updated });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
 

@@ -38,3 +38,20 @@ export const addGMCH = async ({ formData, setResponse, setError, setLoading }) =
   }
 };
 
+export const updateGMCH = async ({ id, formData, setResponse, setError, setLoading }) => {
+  try {
+    setLoading(true);
+    const res = await API.put(`gmch/${id}`, formData);
+
+    if (res.data.success) {
+      setResponse(prev =>
+        prev.map(item => item._id === id ? res.data.data : item)
+      );
+    }
+  } catch (err) {
+    setError("Failed to update data");
+  } finally {
+    setLoading(false);
+  }
+};
+

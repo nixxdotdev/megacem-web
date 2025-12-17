@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getGMCH, addGMCH } from "../services/gmchServices";
+import { getGMCH, addGMCH, updateGMCH } from "../services/gmchServices";
 
 const HolcimPage = () => {
     const [response, setResponse] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [showBetween, setShowBetween] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const [selectedId, setSelectedId] = useState(null);
+
 
     // Modal State
     const [showModal, setShowModal] = useState(false);
@@ -17,6 +19,7 @@ const HolcimPage = () => {
         drnumber: "",
         weighslip: "",
         ponumber: "",
+        thnumber: "",
         trucktype: "DUMPTRAILER",
     });
 
@@ -33,14 +36,59 @@ const HolcimPage = () => {
     };
 
     // SAVE BUTTON IN MODAL
-    const handleSave = () => {
-         addGMCH({
+   const handleSave = () => {
+        if (isEdit) {
+            updateGMCH({
+            id: selectedId,
             formData,
             setResponse,
             setError,
             setLoading
+            });
+        } else {
+            addGMCH({
+            formData,
+            setResponse,
+            setError,
+            setLoading
+            });
+        }
+
+        closeModal();
+        setIsEdit(false);
+    };
+
+
+    const handleEdit = (item) => {
+        setIsEdit(true);
+        setSelectedId(item._id); // MongoDB _id
+        setFormData({
+            MTIdr: item.MTIdr,
+            drdate: item.drdate,
+            drnumber: item.drnumber,
+            weighslip: item.weighslip,
+            ponumber: item.ponumber,
+            thnumber: item.thnumber,
+            trucktype: item.trucktype
+        });
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setIsEdit(false);
+        setSelectedId(null);
+        setFormData({
+            MTIdr: "MTI DR - 00090839",
+            drdate: "",
+            drnumber: "",
+            weighslip: "",
+            ponumber: "",
+            thnumber: "",
+            trucktype: "DUMPTRAILER",
         });
     };
+
 
     return (
         <>
@@ -52,7 +100,10 @@ const HolcimPage = () => {
                 <div className="col-auto">
                     <button
                         className="btn btn-success mr-2"
-                        onClick={() => setShowModal(true)}
+                        onClick={() => {
+                            setIsEdit(false);
+                            setShowModal(true);
+                        }}
                     >
                         Add New Data
                     </button>
@@ -76,7 +127,7 @@ const HolcimPage = () => {
                                 <h5 className="modal-title">Add New Data</h5>
                                 <button
                                     className="close"
-                                    onClick={() => setShowModal(false)}
+                                    onClick={closeModal}
                                 >
                                     <span>&times;</span>
                                 </button>
@@ -90,6 +141,7 @@ const HolcimPage = () => {
                                             type="date"
                                             name="drdate"
                                             className="form-control"
+                                            value={formData.drdate}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -100,6 +152,7 @@ const HolcimPage = () => {
                                             type="text"
                                             name="drnumber"
                                             className="form-control"
+                                            value={formData.drnumber}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -110,6 +163,7 @@ const HolcimPage = () => {
                                             type="text"
                                             name="weighslip"
                                             className="form-control"
+                                            value={formData.weighslip}
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -120,6 +174,18 @@ const HolcimPage = () => {
                                             type="text"
                                             name="ponumber"
                                             className="form-control"
+                                            value={formData.ponumber}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+
+                                    <div className="col-md-6 mt-3">
+                                        <label>TH Number</label>
+                                        <input
+                                            type="text"
+                                            name="thnumber"
+                                            value={formData.thnumber}
+                                            className="form-control"
                                             onChange={handleChange}
                                         />
                                     </div>
@@ -129,7 +195,7 @@ const HolcimPage = () => {
                             <div className="modal-footer">
                                 <button
                                     className="btn btn-secondary"
-                                    onClick={() => setShowModal(false)}
+                                    onClick={closeModal}
                                 >
                                     Close
                                 </button>
@@ -160,9 +226,11 @@ const HolcimPage = () => {
                                         <th className="text-center">DR No.</th>
                                         <th className="text-center">Holcim Weigh Slip</th>
                                         <th className="text-center">P.O. Number</th>
+                                        <th className="text-center">TH Number</th>
                                         <th className="text-center">Rate</th>
                                         <th className="text-center">VAT (12%)</th>
                                         <th className="text-center">Gross Amount</th>
+                                        <th className="text-center">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -175,10 +243,19 @@ const HolcimPage = () => {
                                                 <td className="text-center">{item.drnumber || "-"}</td>
                                                 <td className="text-center">{item.weighslip || "-"}</td>
                                                 <td className="text-center">{item.ponumber || "-"}</td>
+                                                <td className="text-center">{item.thnumber || "-"}</td>
                                                 <td className="text-center">{item.rate + ".00" || "-"}</td>
                                                 <td className="text-center">{item.vat + ".00" || "-"}</td>
                                                 <td className="text-center">{item.grossamount + ".00" || "-"}</td>
-                                            </tr>
+                                                <td className="text-center">
+                                                    <button
+                                                        className="btn btn-sm btn-warning text-white"
+                                                        onClick={() => handleEdit(item)}
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    </td>
+                                                </tr>
                                         ))
                                     ) : (
                                         <tr>
