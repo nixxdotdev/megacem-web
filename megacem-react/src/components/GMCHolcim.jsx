@@ -7,6 +7,9 @@ const HolcimPage = () => {
     const [error, setError] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+
 
 
     // Modal State
@@ -89,15 +92,54 @@ const HolcimPage = () => {
         });
     };
 
+    const handleFilter = () => {
+        getGMCH({
+            startDate,
+            endDate,
+            setResponse,
+            setError,
+            setLoading
+        });
+    };
+
+
 
     return (
         <>
             <div className="row align-items-center mb-3 justify-content-between">
                 <div className="col-auto">
                     <h3 className="mb-0 font-weight-bold">GMC - HOLCIM</h3>
-                </div>
+                </div>        
 
-                <div className="col-auto">
+                <div className="col-auto d-flex align-items-end">
+
+                    <div className="mr-2">
+                        <label className="mb-0 small">From</label>
+                        <input
+                            type="date"
+                            className="form-control"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mr-3">
+                        <label className="mb-0 small">To</label>
+                        <input
+                            type="date"
+                            className="form-control"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                        />
+                    </div>
+
+                    <button
+                        className="btn btn-outline-primary mr-2"
+                        onClick={handleFilter}
+                        >
+                        Filter
+                    </button>
+
                     <button
                         className="btn btn-success mr-2"
                         onClick={() => {
@@ -107,11 +149,11 @@ const HolcimPage = () => {
                     >
                         Add New Data
                     </button>
-
-                    <button className="btn btn-warning text-white mr-2">Edit Data</button>
                     <button className="btn btn-primary mr-2">Extract Table</button>
                     <button className="btn btn-secondary">Settings</button>
                 </div>
+
+                
             </div>
 
             {/* ===================== MODAL ===================== */}
@@ -189,6 +231,16 @@ const HolcimPage = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
+                                     <div className="col-md-6 mt-3">
+                                        <label>Truck Type</label>
+                                        <input
+                                            type="text"
+                                            name="trucktype"
+                                            value={formData.trucktype}
+                                            className="form-control"
+                                            onChange={handleChange}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -227,6 +279,7 @@ const HolcimPage = () => {
                                         <th className="text-center">Holcim Weigh Slip</th>
                                         <th className="text-center">P.O. Number</th>
                                         <th className="text-center">TH Number</th>
+                                        <th className="text-center">Truck Type</th>
                                         <th className="text-center">Rate</th>
                                         <th className="text-center">VAT (12%)</th>
                                         <th className="text-center">Gross Amount</th>
@@ -244,9 +297,10 @@ const HolcimPage = () => {
                                                 <td className="text-center">{item.weighslip || "-"}</td>
                                                 <td className="text-center">{item.ponumber || "-"}</td>
                                                 <td className="text-center">{item.thnumber || "-"}</td>
+                                                <td className="text-center">{item.trucktype || "-"}</td>
                                                 <td className="text-center">{item.rate + ".00" || "-"}</td>
                                                 <td className="text-center">{item.vat + ".00" || "-"}</td>
-                                                <td className="text-center">{item.grossamount + ".00" || "-"}</td>
+                                                <td className="text-center">{"₱" + item.grossamount + ".00" || "-"}</td>
                                                 <td className="text-center">
                                                     <button
                                                         className="btn btn-sm btn-warning text-white"
