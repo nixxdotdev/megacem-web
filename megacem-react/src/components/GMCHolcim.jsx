@@ -93,13 +93,7 @@ const HolcimPage = () => {
     };
 
     const handleFilter = () => {
-        getGMCH({
-            startDate,
-            endDate,
-            setResponse,
-            setError,
-            setLoading
-        });
+
     };
 
 
@@ -113,31 +107,12 @@ const HolcimPage = () => {
 
                 <div className="col-auto d-flex align-items-end">
 
-                    <div className="mr-2">
-                        <label className="mb-0 small">From</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="mr-3">
-                        <label className="mb-0 small">To</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
-                        />
-                    </div>
 
                     <button
                         className="btn btn-outline-primary mr-2"
                         onClick={handleFilter}
                         >
-                        Filter
+                        Custom Filter
                     </button>
 
                     <button
@@ -308,8 +283,14 @@ const HolcimPage = () => {
                                                     >
                                                         Edit
                                                     </button>
-                                                    </td>
-                                                </tr>
+                                                    <button
+                                                        className="btn btn-sm btn-danger text-white"
+                                                        
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         ))
                                     ) : (
                                         <tr>
