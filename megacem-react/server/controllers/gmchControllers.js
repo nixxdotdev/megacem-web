@@ -58,3 +58,28 @@ export async function updateData(req, res) {
   }
 }
 
+export async function deleteData(req, res) {
+  try {
+    const deleted = await GMCHolcim.findByIdAndDelete(req.params.id);
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Record not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Record deleted successfully",
+      data: deleted,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      error: err.message,
+    });
+  }
+}
+
+

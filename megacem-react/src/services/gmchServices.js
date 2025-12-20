@@ -41,7 +41,7 @@ export const addGMCH = async ({ formData, setResponse, setError, setLoading }) =
 export const updateGMCH = async ({ id, formData, setResponse, setError, setLoading }) => {
   try {
     setLoading(true);
-    const res = await API.put(`gmch/${id}`, formData);
+    const res = await API.put(`gmch/update/${id}`, formData);
 
     if (res.data.success) {
       setResponse(prev =>
@@ -54,4 +54,22 @@ export const updateGMCH = async ({ id, formData, setResponse, setError, setLoadi
     setLoading(false);
   }
 };
+
+export const deleteGMCH = async ({ id, setResponse, setError, setLoading }) => {
+  try {
+    const res = await API.delete(`gmch/delete/${id}`);
+
+    if (res.data.success) {
+      setResponse(prev => prev.filter(item => item._id !== id));
+    } else {
+      setError("Failed to delete data.");
+    }
+  } catch (err) {
+    setError("An error occurred while deleting data.");
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 

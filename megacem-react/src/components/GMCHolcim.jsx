@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getGMCH, addGMCH, updateGMCH } from "../services/gmchServices";
+import { getGMCH, addGMCH, updateGMCH, deleteGMCH } from "../services/gmchServices";
 
 const HolcimPage = () => {
     const [response, setResponse] = useState([]);
@@ -64,7 +64,7 @@ const HolcimPage = () => {
 
     const handleEdit = (item) => {
         setIsEdit(true);
-        setSelectedId(item._id); // MongoDB _id
+        setSelectedId(item._id);
         setFormData({
             MTIdr: item.MTIdr,
             drdate: item.drdate,
@@ -96,6 +96,16 @@ const HolcimPage = () => {
 
     };
 
+    const handleDelete = (item) => {
+    if (!window.confirm("Are you sure you want to delete this record?")) return;
+
+        deleteGMCH({
+            id: item._id,
+            setResponse,
+            setError,
+            setLoading,
+        });
+    };
 
 
     return (
@@ -162,7 +172,6 @@ const HolcimPage = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
-
                                     <div className="col-md-6">
                                         <label>Delivery Receipt No.</label>
                                         <input
@@ -184,37 +193,45 @@ const HolcimPage = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
-
                                     <div className="col-md-6 mt-3">
                                         <label>P.O. Number</label>
-                                        <input
-                                            type="text"
+                                        <select
                                             name="ponumber"
-                                            className="form-control"
                                             value={formData.ponumber}
+                                            className="form-control"
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="" disabled>Select P.O. Number</option>
+                                            <option value="6700231416">6700231416</option>
+                                            <option value="6700231417">6700231417</option>
+                                        </select>
                                     </div>
-
                                     <div className="col-md-6 mt-3">
                                         <label>TH Number</label>
-                                        <input
-                                            type="text"
+                                        <select
                                             name="thnumber"
                                             value={formData.thnumber}
                                             className="form-control"
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="" disabled>Select TH Number</option>
+                                            <option value="291">291</option>
+                                            <option value="292">292</option>
+                                            <option value="295">295</option>
+                                            <option value="285">285</option>
+                                        </select>
                                     </div>
-                                     <div className="col-md-6 mt-3">
+                                    <div className="col-md-6 mt-3">
                                         <label>Truck Type</label>
-                                        <input
-                                            type="text"
+                                        <select
                                             name="trucktype"
                                             value={formData.trucktype}
                                             className="form-control"
                                             onChange={handleChange}
-                                        />
+                                        >
+                                            <option value="DUMPTRAILER">DUMPTRAILER</option>
+                                            <option value="DUMPTRUCK">DUMPTRUCK</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -278,18 +295,20 @@ const HolcimPage = () => {
                                                 <td className="text-center">{"₱" + item.grossamount + ".00" || "-"}</td>
                                                 <td className="text-center">
                                                     <button
-                                                        className="btn btn-sm btn-warning text-white"
+                                                        className="btn btn-sm btn-warning text-white mr-2"
                                                         onClick={() => handleEdit(item)}
                                                     >
                                                         Edit
                                                     </button>
+
                                                     <button
                                                         className="btn btn-sm btn-danger text-white"
-                                                        
+                                                        onClick={() => handleDelete(item)}
                                                     >
-                                                        Edit
+                                                        Delete
                                                     </button>
                                                 </td>
+
                                             </tr>
                                         ))
                                     ) : (
