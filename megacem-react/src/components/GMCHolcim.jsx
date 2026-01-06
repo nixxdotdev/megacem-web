@@ -7,8 +7,9 @@ const HolcimPage = () => {
     const [error, setError] = useState("");
     const [isEdit, setIsEdit] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [showFilterModal, setShowFilterModal] = useState(false);
+    const [filterBy, setFilterBy] = useState("");
+    const [operator, setOperator] = useState("equal");
 
 
 
@@ -120,10 +121,11 @@ const HolcimPage = () => {
 
                     <button
                         className="btn btn-outline-primary mr-2"
-                        onClick={handleFilter}
-                        >
-                        Custom Filter
+                        onClick={() => setShowFilterModal(true)}
+                    >
+                            Custom Filter
                     </button>
+
 
                     <button
                         className="btn btn-success mr-2"
@@ -253,6 +255,120 @@ const HolcimPage = () => {
                     </div>
                 </div>
             )}
+
+            {showFilterModal && (
+                <div
+                    className="modal fade show"
+                    style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+                >
+                    <div className="modal-dialog modal-lg modal-dialog-centered">
+                        <div className="modal-content">
+
+                            {/* HEADER */}
+                            <div className="modal-header justify-content-center">
+                                <h3 className="modal-title font-weight-bold text-center">
+                                    CUSTOM FILTER
+                                </h3>
+                                <button
+                                    type="button"
+                                    className="close position-absolute"
+                                    style={{ right: "15px" }}
+                                    onClick={() => setShowFilterModal(false)}
+                                >
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+
+                            {/* BODY */}
+                            <div className="modal-body">
+                                <div className="d-flex justify-content-between align-items-end">
+
+                                    {/* DROPDOWN 1*/}
+                                    <div className="flex-fill mr-2">
+                                        <label>Filter By</label>
+                                       <select
+                                            className="form-control"
+                                            value={filterBy}
+                                            onChange={(e) => setFilterBy(e.target.value)}
+                                        >
+                                            <option value="">Select</option>
+                                            <option value="drdate">Delivery Date</option>
+                                            <option value="ponumber">P.O. Number</option>
+                                            <option value="thnumber">TH Number</option>
+                                            <option value="trucktype">Truck Type</option>
+                                        </select>
+                                    </div>
+
+                                   {/* DROPDOWN 2 */}
+                                    <div className="flex-fill mr-2">
+                                        <select
+                                            className="form-control"
+                                            value={operator}
+                                            onChange={(e) => setOperator(e.target.value)}
+                                        >
+                                            <option value="equal">equal to</option>
+                                            <option value="contains">contains</option>
+                                            <option value="not-contains">not contains</option>
+                                            <option value="is-between">is between</option>
+                                        </select>
+                                    </div>
+
+                                    {/* INPUT 2 */}
+                                    <div className="flex-fill">
+                                        <label>Value</label>
+
+                                        {/* DELIVERY DATE */}
+                                        {filterBy === "drdate" ? (
+                                            operator === "is-between" ? (
+                                                
+                                                <div className="d-flex">
+                                                    <input
+                                                        type="date"
+                                                        className="form-control mr-2"
+                                                        placeholder="Start Date"
+                                                    />
+                                                    <input
+                                                        type="date"
+                                                        className="form-control"
+                                                        placeholder="End Date"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <input
+                                                    type="date"
+                                                    className="form-control"
+                                                />
+                                            )
+                                        ) : (
+                                            /* NON-DATE FILTERS */
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter value"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* FOOTER */}
+                            <div className="modal-footer justify-content-center">
+                                <button
+                                    className="btn btn-secondary mr-2"
+                                    onClick={() => setShowFilterModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button className="btn btn-primary">
+                                    Apply Filter
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            )}
+
 
             {/* ======== TABLE ======== */}
             <div className="card shadow mb-4">
