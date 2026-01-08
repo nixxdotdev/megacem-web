@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getGMCH, addGMCH, updateGMCH, deleteGMCH } from "../services/gmchServices";
+import { formatDateDMY } from "../helpers/formatDate";
 
 const HolcimPage = () => {
     const [response, setResponse] = useState([]);
@@ -18,13 +19,13 @@ const HolcimPage = () => {
 
     // Form State
     const [formData, setFormData] = useState({
-        MTIdr: "MTI DR - 00090839",
+        MTIdr: "",
         drdate: "",
         drnumber: "",
         weighslip: "",
         ponumber: "",
         thnumber: "",
-        trucktype: "DUMPTRAILER",
+        trucktype: "",
     });
 
     useEffect(() => {
@@ -135,6 +136,9 @@ const HolcimPage = () => {
                         }}
                     >
                         Add New Data
+
+                        
+                        
                     </button>
                     <button className="btn btn-primary mr-2">Extract Table</button>
                     <button className="btn btn-secondary">Settings</button>
@@ -153,7 +157,7 @@ const HolcimPage = () => {
                         <div className="modal-content">
 
                             <div className="modal-header">
-                                <h5 className="modal-title">Add New Data</h5>
+                                <h5 className="modal-title">Add/Update New Data</h5>
                                 <button
                                     className="close"
                                     onClick={closeModal}
@@ -235,6 +239,16 @@ const HolcimPage = () => {
                                             <option value="DUMPTRUCK">DUMPTRUCK</option>
                                         </select>
                                     </div>
+                                     <div className="col-md-6 mt-3">
+                                        <label>MTI DR No.</label>
+                                         <input
+                                            type="text"
+                                            name="MTIdr"
+                                            className="form-control"
+                                            value={formData.MTIdr}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -309,7 +323,9 @@ const HolcimPage = () => {
                                             <option value="equal">equal to</option>
                                             <option value="contains">contains</option>
                                             <option value="not-contains">not contains</option>
-                                            <option value="is-between">is between</option>
+                                            {filterBy === "drdate" ? (
+                                                <option value="is-between">is between</option>
+                                            ) : null}
                                         </select>
                                     </div>
 
@@ -389,8 +405,7 @@ const HolcimPage = () => {
                                         <th className="text-center">TH Number</th>
                                         <th className="text-center">Truck Type</th>
                                         <th className="text-center">Rate</th>
-                                        <th className="text-center">VAT (12%)</th>
-                                        <th className="text-center">Gross Amount</th>
+                                        <th className="text-center">MTI DR No.</th>
                                         <th className="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -400,15 +415,14 @@ const HolcimPage = () => {
                                         response.map((item, idx) => (
                                             <tr key={idx}>
                                                 <td className="text-center">{idx + 1}</td>
-                                                <td className="text-center">{item.drdate || "-"}</td>
+                                                <td className="text-center">{formatDateDMY(item.drdate)}</td>
                                                 <td className="text-center">{item.drnumber || "-"}</td>
                                                 <td className="text-center">{item.weighslip || "-"}</td>
                                                 <td className="text-center">{item.ponumber || "-"}</td>
                                                 <td className="text-center">{item.thnumber || "-"}</td>
                                                 <td className="text-center">{item.trucktype || "-"}</td>
                                                 <td className="text-center">{item.rate + ".00" || "-"}</td>
-                                                <td className="text-center">{item.vat + ".00" || "-"}</td>
-                                                <td className="text-center">{"₱" + item.grossamount + ".00" || "-"}</td>
+                                                <td className="text-center">{item.MTIdr || "-"}</td>
                                                 <td className="text-center">
                                                     <button
                                                         className="btn btn-sm btn-warning text-white mr-2"

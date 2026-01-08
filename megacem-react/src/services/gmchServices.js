@@ -24,7 +24,7 @@ export const addGMCH = async ({ formData, setResponse, setError, setLoading }) =
     const response = await API.post('gmch/add', formData);
 
     if (response.data.success) {
-      setResponse(prev => [...prev, response.data.data]);  // append new row
+      setResponse(prev => [...prev, response.data.data]); 
     } else {
       setError("Failed to add data.");
     }
