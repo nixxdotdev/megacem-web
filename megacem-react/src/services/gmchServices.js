@@ -72,4 +72,20 @@ export const deleteGMCH = async ({ id, setResponse, setError, setLoading }) => {
   }
 };
 
+export const exportGMCHExcel = async () => {
+    const response = await API.get("gmch/export-excel", {
+        responseType: "blob"
+    });
+
+    const blob = new Blob([response.data]);
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "GMC-Holcim-Billing.xlsx";
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+};
+
 

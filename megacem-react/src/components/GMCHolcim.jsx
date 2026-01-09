@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getGMCH, addGMCH, updateGMCH, deleteGMCH } from "../services/gmchServices";
+import { getGMCH, addGMCH, updateGMCH, deleteGMCH, exportGMCHExcel } from "../services/gmchServices";
 import { formatDateDMY } from "../helpers/formatDate";
 
 const HolcimPage = () => {
@@ -109,7 +109,6 @@ const HolcimPage = () => {
         });
     };
 
-
     return (
         <>
             <div className="row align-items-center mb-3 justify-content-between">
@@ -140,7 +139,7 @@ const HolcimPage = () => {
                         
                         
                     </button>
-                    <button className="btn btn-primary mr-2">Extract Table</button>
+                    <button className="btn btn-primary mr-2" onClick={exportGMCHExcel}>Extract Table</button>
                     <button className="btn btn-secondary">Settings</button>
                 </div>
 
