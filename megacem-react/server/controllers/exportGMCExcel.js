@@ -13,57 +13,74 @@ export async function exportGMCHExcel(req, res) {
       { width: 18 }, // A
       { width: 15 }, // B
       { width: 18 }, // C
-      { width: 28 }, // D
+      { width: 18 }, // D
       { width: 18 }, // E
       { width: 15 }, // F
       { width: 12 }, // G
       { width: 12 }, // H
-      { width: 15 }, // I
-      { width: 20 }, // J
-      { width: 20 }, // K
+      { width: 12 }, // I
+      { width: 13 }, // J
+      { width: 15  }, // K
     ];
 
     // =====================
     // HEADER / BILL TO
     // =====================
-    sheet.mergeCells("A2:D5");
-    sheet.getCell("A2").value = "MEGATRANSPORT";
-    sheet.getCell("A2").font = { bold: true, size: 16 };
+    sheet.mergeCells("B2:D5");
+    sheet.getCell("B2").value = "MEGATRANSPORT";
+    sheet.getCell("B2").font = { bold: true, size: 16 };
     sheet.getCell("A2").alignment = { vertical: "middle" };
 
-    sheet.getCell("A7").value = "Bill To:";
-    sheet.getCell("A8").value = "Customer:";
-    sheet.getCell("A9").value = "GREEN MEGACYCLE CORP.";
-    sheet.getCell("A9").font = { bold: true };
+    sheet.getCell("B6").value = "Bill To:";
+    sheet.getCell("B7").value = "Customer:";
+    sheet.getCell("B8").value = "GREEN MEGACYCLE CORP.";
+    sheet.getCell("B8").font = { bold: true };
 
-    sheet.getCell("A10").value = "Address:";
-    sheet.getCell("A11").value =
+    sheet.getCell("B9").value = "Address:";
+    sheet.getCell("B10").value =
       "15 Sunrise Street, North Rim View Park, Concepcion Dos, City of Marikina";
 
-    sheet.getCell("A12").value = "TIN No.";
-    sheet.getCell("A13").value = "618-117-819-0000";
+    sheet.getCell("B11").value = "TIN No.";
+    sheet.getCell("B12").value = "618-117-819-0000";
 
     // =====================
     // BILLING INFO (RIGHT)
     // =====================
-    sheet.mergeCells("H2:J2");
+    sheet.mergeCells("H2:K2");
     sheet.getCell("H2").value = "Billing Statement";
     sheet.getCell("H2").font = { bold: true };
     sheet.getCell("H2").alignment = { horizontal: "center" };
 
     sheet.getCell("H4").value = "Date:";
+    sheet.mergeCells("I4:K4");
     sheet.getCell("I4").value = new Date();
+    sheet.getCell("I4").alignment = { horizontal: "center" };
 
     sheet.getCell("H5").value = "PO Number:";
+    sheet.mergeCells("I5:K5");
     sheet.getCell("H6").value = "Period:";
+    sheet.mergeCells("I6:K6");
     sheet.getCell("I6").value = "December 5, 2025";
+    sheet.getCell("I6").alignment = { horizontal: "center" };
 
+    sheet.mergeCells("I7:K7");
     sheet.getCell("H7").value = "Billing Invoice:";
 
+    sheet.getCell("H9").value = "Account Summary:";
+    sheet.getCell("H10").value = "Terms:";
+    sheet.getCell("H11").value = "Credits:";
+    sheet.getCell("H12").value = "New Charges:";
+    sheet.getCell("H13").value = "Total Balance Due:";
+
+    sheet.getCell("K12").value = "30000";
+    sheet.getCell("K13").value = "30000";
+
     // =====================
-    // TABLE HEADER
+    // TABLE HEADER (start at B14)
     // =====================
-    const headerRow = sheet.addRow([
+    const headerRow = sheet.getRow(15);
+    headerRow.values = [
+      null,
       "Plant Source / Delivery Site",
       "Date of Delivery",
       "Delivery Receipt",
@@ -75,11 +92,14 @@ export async function exportGMCHExcel(req, res) {
       "Gross Amount",
       "Truck Type / Remarks",
       "Driver's Report",
-    ]);
+    ];
 
-    headerRow.eachCell((cell) => {
+    // increase header row height and enable wrapping
+    headerRow.height = 30;
+
+    headerRow.eachCell({ includeEmpty: false }, (cell) => {
       cell.font = { bold: true };
-      cell.alignment = { horizontal: "center", vertical: "middle" };
+      cell.alignment = { horizontal: "center", vertical: "middle", wrapText: true };
       cell.border = {
         top: { style: "thin" },
         left: { style: "thin" },
@@ -111,6 +131,7 @@ export async function exportGMCHExcel(req, res) {
       totalGross += gross;
 
       const row = sheet.addRow([
+        null,
         item.plantsource || "",
         new Date(item.drdate),
         item.drnumber,
@@ -125,6 +146,7 @@ export async function exportGMCHExcel(req, res) {
       ]);
 
       row.eachCell((cell) => {
+        cell.alignment = { horizontal: "center", vertical: "middle", wrapText: true };
         cell.border = {
           top: { style: "thin" },
           left: { style: "thin" },
@@ -138,21 +160,23 @@ export async function exportGMCHExcel(req, res) {
     // TOTAL ROW
     // =====================
     const totalRow = sheet.addRow([
+      null,
       "TOTAL",
       "",
       "",
       "",
       "",
       "",
-      totalRate,
-      totalVat,
-      totalGross,
+      "",
+      "",
+      "",
       "",
       "",
     ]);
 
     totalRow.eachCell((cell) => {
       cell.font = { bold: true };
+      cell.alignment = { horizontal: "center", vertical: "middle", wrapText: true };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
@@ -171,6 +195,7 @@ export async function exportGMCHExcel(req, res) {
     // =====================
     sheet.addRow([]);
     sheet.addRow([
+      null,
       "Prepared by:",
       "",
       "Checked by:",
@@ -181,7 +206,8 @@ export async function exportGMCHExcel(req, res) {
     ]);
 
     sheet.addRow([
-      "Arq Veloso / Earl Gierald Verzon",
+      null,
+      "Ara Veloso / Earl Gierald Verzon",
       "",
       "Angel Borja",
       "",
